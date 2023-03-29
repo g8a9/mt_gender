@@ -24,6 +24,7 @@ from languages.semitic_languages import ArabicPredictor, HebrewPredictor
 # Local imports
 from languages.spacy_support import SpacyPredictor
 from tqdm import tqdm
+import json
 
 #=-----
 
@@ -141,16 +142,8 @@ def align_bitext_to_ds(bitext, ds):
         new_bitext.append((ind, (en_sent, tgt_sent)))
     return new_bitext
 
-if __name__ == "__main__":
-    # Parse command line arguments
-    args = docopt(__doc__)
-    ds_fn = args["--ds"]
-    bi_fn = args["--bi"]
-    align_fn = args["--align"]
-    out_fn = args["--out"]
-    lang = args["--lang"]
-
-    debug = args["--debug"]
+def main(ds_fn, bi_fn, align_fn, out_fn, lang, trans_sys, debug):
+   
     if debug:
         logging.basicConfig(level = logging.DEBUG)
     else:
@@ -178,7 +171,29 @@ if __name__ == "__main__":
     # Output predictions
     output_predictions(target_sentences, gender_predictions, out_fn)
 
-    d = evaluate_bias(ds, gender_predictions)
+    results = evaluate_bias(ds, gender_predictions)
 
+    import os
+    import pickle
+    import json
+
+    os.makedirs("./results", exist_ok=True)
+    with open(f"./results/{trans_sys}_en-{lang}.json", "w") as fp:
+        json.dump(results, fp)
 
     logging.info("DONE")
+
+    return results
+
+if __name__ == "__main__":
+     # Parse command line arguments
+    args = docopt(__doc__)
+    ds_fn = args["--ds"]
+    bi_fn = args["--bi"]
+    align_fn = args["--align"]
+    out_fn = args["--out"]
+    lang = args["--lang"]
+    trans_sys = args["--trans_sys"]
+    debug = args["--debug"]
+
+    main(ds_fn, bi_fn, align_fn, out_fn, lang, trans_sys, debug)

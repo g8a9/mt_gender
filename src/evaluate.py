@@ -100,6 +100,8 @@ def evaluate_bias(ds: List[str], predicted: List[GENDER]) -> Dict:
     amb_prof = [prof for prof, vals in prof_dict.items()
                 if len(set(map(itemgetter(0), vals))) != 1]
 
+    return output_dict
+
 
 
 def percentage(part, total):

@@ -34,7 +34,7 @@ $FAST_ALIGN_BASE/build/fast_align -i $trans_fn -d -o -v > $align_fn
 # Evaluate
 mkdir -p ../data/human/$trans_sys/$lang/
 out_fn=../data/human/$trans_sys/$lang/${lang}.pred.csv
-python load_alignments.py --ds=$dataset  --bi=$trans_fn --align=$align_fn --lang=$lang --out=$out_fn
+python load_alignments.py --ds=$dataset  --bi=$trans_fn --align=$align_fn --lang=$lang --trans_sys=$trans_sys --out=$out_fn
 
 # Prepare files for human annots
 # human_fn=../data/human/$trans_sys/$lang/${lang}.in.csv
