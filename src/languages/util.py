@@ -94,8 +94,8 @@ def get_gender_from_token(token: Token):
     if (token.lang_ == "it") and (token.text.startswith("dell'")):
         return GENDER.male
 
-
-    morph_dict = get_morphology_dict(token)
+    # morph_dict = get_morphology_dict(token)
+    morph_dict = token.morph.to_dict() # update with spacy 3+
     if "Gender" not in morph_dict:
         return None
 
