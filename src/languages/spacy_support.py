@@ -4,17 +4,16 @@
 # External imports
 import logging
 import pdb
-from pprint import pprint
-from pprint import pformat
-from docopt import docopt
-from collections import defaultdict
+from collections import Counter, defaultdict
 from operator import itemgetter
-from tqdm import tqdm
-from collections import Counter
-import spacy
+from pprint import pformat, pprint
 
+import spacy
+from docopt import docopt
 # Local imports
 from languages.util import GENDER, get_gender_from_token
+from tqdm import tqdm
+
 #=-----
 
 class SpacyPredictor:
@@ -27,7 +26,7 @@ class SpacyPredictor:
         """
         Init spacy for the specified language code.
         """
-        assert lang in ["es", "fr", "it"]
+        # assert lang in ["es", "fr", "it"]
         self.lang = lang
         self.cache = {}    # Store calculated professions genders
         self.nlp = spacy.load(self.lang, disable = ["parser", "ner"])
