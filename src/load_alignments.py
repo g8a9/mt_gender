@@ -1,34 +1,36 @@
 """ Usage:
     <file-name> --ds=DATASET_FILE --bi=IN_FILE --align=ALIGN_FILE --out=OUT_FILE --lang=LANG  [--debug]
 """
+import csv
 # External imports
 import logging
 import pdb
-from pprint import pprint
-from pprint import pformat
-from docopt import docopt
-from collections import defaultdict, Counter
+from collections import Counter, defaultdict
 from operator import itemgetter
-from tqdm import tqdm
+from pprint import pformat, pprint
 from typing import List
-import csv
 
-# Local imports
-from languages.spacy_support import SpacyPredictor
-# from languages.german import GermanPredictor
-from languages.gendered_article import GenderedArticlePredictor, \
-    get_german_determiners, GERMAN_EXCEPTION, get_french_determiners
-from languages.pymorph_support import PymorphPredictor
-from languages.semitic_languages import HebrewPredictor, ArabicPredictor
-from languages.morfeusz_support import MorfeuszPredictor
+from docopt import docopt
 from evaluate import evaluate_bias
 from languages.czech import CzechPredictor
+# from languages.german import GermanPredictor
+from languages.gendered_article import (GERMAN_EXCEPTION,
+                                        GenderedArticlePredictor,
+                                        get_french_determiners,
+                                        get_german_determiners)
+from languages.morfeusz_support import MorfeuszPredictor
+from languages.pymorph_support import PymorphPredictor
+from languages.semitic_languages import ArabicPredictor, HebrewPredictor
+# Local imports
+from languages.spacy_support import SpacyPredictor
+from tqdm import tqdm
+
 #=-----
 
 LANGAUGE_PREDICTOR = {
-    "es": lambda: SpacyPredictor("es"),
-    "fr": lambda: SpacyPredictor("fr"),
-    "it": lambda: SpacyPredictor("it"),
+    "es": lambda: SpacyPredictor("es_core_news_sm"),
+    "fr": lambda: SpacyPredictor("fr_core_news_sm"),
+    "it": lambda: SpacyPredictor("it_core_news_sm"),
     "ru": lambda: PymorphPredictor("ru"),
     "uk": lambda: PymorphPredictor("uk"),
     "he": lambda: HebrewPredictor(),
