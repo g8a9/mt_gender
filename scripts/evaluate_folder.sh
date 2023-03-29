@@ -19,7 +19,7 @@ mkdir -p ../translations/$trans_sys/
 mkdir -p ../data/human/$lang
 
 # Translate
-#trans_fn=../translations/$trans_sys/$prefix.txt
+trans_fn=../translations/$trans_sys/$prefix.txt
 #echo "!!! $trans_fn"
 #if [ ! -f $trans_fn ]; then
 #    python translate.py --trans=$trans_sys --in=./tmp.in --src=en --tgt=$2 --out=$trans_fn
