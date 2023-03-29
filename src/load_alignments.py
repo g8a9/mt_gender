@@ -1,5 +1,5 @@
 """ Usage:
-    <file-name> --ds=DATASET_FILE --bi=IN_FILE --align=ALIGN_FILE --out=OUT_FILE --lang=LANG --trans_sys [--debug]
+    <file-name> --ds=DATASET_FILE --bi=IN_FILE --align=ALIGN_FILE --out=OUT_FILE --lang=LANG --trans_sys=TRANS_SYS [--debug]
 """
 import csv
 # External imports
