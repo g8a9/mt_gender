@@ -36,8 +36,10 @@ mkdir -p ../data/human/$trans_sys/$lang/
 out_fn=../data/human/$trans_sys/$lang/${lang}.pred.csv
 python load_alignments.py --ds=$dataset  --bi=$trans_fn --align=$align_fn --lang=$lang --trans_sys=$trans_sys --out=$out_fn
 
-mkdir -p ../results
-mv ./results/* ../results
+dataset_stem=`echo ${dataset} | cut -d/ -f4 | cut -d. -f1`
+
+mkdir -p ../results/${dataset_stem}
+mv ./results/* ../results/${dataset_stem}
 rm -r ./results
 
 # Prepare files for human annots

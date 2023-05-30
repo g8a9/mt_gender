@@ -38,6 +38,17 @@ def evaluate_bias(ds: List[str], predicted: List[GENDER]) -> Dict:
 
     count_unknowns = defaultdict(lambda: 0)
 
+    y_true = [d[0] for d in ds]
+    INV_GENDER = {v: k for k, v in WB_GENDER_TYPES.items()}
+    y_pred = list()
+    for p in predicted:        
+        if p == GENDER.ignore:
+            y_pred.append("ignore")
+        elif p == GENDER.unknown:
+            y_pred.append("unknown")
+        else:
+            y_pred.append(INV_GENDER[p])
+
     for (gold_gender, word_ind, sent, profession), pred_gender in zip(ds, predicted):
         if pred_gender == GENDER.ignore:
             continue # skip analysis of ignored words
@@ -79,7 +90,10 @@ def evaluate_bias(ds: List[str], predicted: List[GENDER]) -> Dict:
                    "f1_female": f1_female,
                    "unk_male": count_unknowns[GENDER.male],
                    "unk_female": count_unknowns[GENDER.female],
-                   "unk_neutral": count_unknowns[GENDER.neutral]}
+                   "unk_neutral": count_unknowns[GENDER.neutral],
+                   "y_true": y_true,
+                   "y_pred": y_pred
+                  }
     print(json.dumps(output_dict))
 
     male_prof = [prof for prof, vals in prof_dict.items()
